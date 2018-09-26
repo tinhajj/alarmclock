@@ -1,7 +1,7 @@
 name: alarmclock
-description: A new flutter plugin project.
-version: 0.0.1
-author: Thanoj Singh
+description: Flutter plugin to set up an alarm clock on android.  Functionality comes from the AlarmClock intents.
+version: 0.0.2
+author: Thanoj Singh <https://www.reddit.com/user/tinhajj>
 homepage: https://www.reddit.com/user/tinhajj
 
 environment:
