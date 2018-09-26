@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 
 class Alarmclock {
   static const MethodChannel _channel =
-      const MethodChannel('alarmclock');
+      const MethodChannel('alarmclock', JSONMethodCodec());
 
   static Future<String> get platformVersion async {
     final String version = await _channel.invokeMethod('getPlatformVersion');

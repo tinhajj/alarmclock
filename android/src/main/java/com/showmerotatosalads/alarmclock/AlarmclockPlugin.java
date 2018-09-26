@@ -6,6 +6,7 @@ import android.provider.AlarmClock;
 
 import org.json.JSONArray;
 
+import io.flutter.plugin.common.JSONMethodCodec;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
@@ -24,7 +25,7 @@ public class AlarmclockPlugin implements MethodCallHandler {
    * Plugin registration.
    */
   public static void registerWith(Registrar registrar) {
-    final MethodChannel channel = new MethodChannel(registrar.messenger(), "alarmclock");
+    final MethodChannel channel = new MethodChannel(registrar.messenger(), "alarmclock", JSONMethodCodec.INSTANCE);
     channel.setMethodCallHandler(new AlarmclockPlugin(registrar.activity()));
   }
 
