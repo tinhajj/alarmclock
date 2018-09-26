@@ -10,4 +10,14 @@ class Alarmclock {
     final String version = await _channel.invokeMethod('getPlatformVersion');
     return version;
   }
+
+  static Future<bool> setAlarm({bool skipui = false, String hour = "12", String minute = "00", String message = "Flutter"}) async {
+    bool ok = await _channel.invokeMethod('setAlarm', <dynamic>[
+      skipui,
+      hour,
+      minute,
+      message
+    ]);
+    return ok;
+  }
 }
