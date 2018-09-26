@@ -1,10 +1,3 @@
 # alarmclock
 
-A new flutter plugin project.
-
-## Getting Started
-
-For help getting started with Flutter, view our online
-[documentation](https://flutter.io/).
-
-For help on editing plugin code, view the [documentation](https://flutter.io/developing-packages/#edit-plugin-package).
+Flutter plugin to make use of the alarm clock intent to setup alarms.  Functionality is basically limited to what the ACTION_SET_ALARM intent can do out of the box.
