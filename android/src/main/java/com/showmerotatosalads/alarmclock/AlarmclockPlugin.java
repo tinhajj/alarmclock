@@ -3,6 +3,7 @@ package com.showmerotatosalads.alarmclock;
 import android.app.Activity;
 import android.content.Intent;
 import android.provider.AlarmClock;
+import android.content.Context;
 
 import org.json.JSONArray;
 
@@ -15,10 +16,10 @@ import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 /** AlarmclockPlugin */
 public class AlarmclockPlugin implements MethodCallHandler {
-  private final Activity activity;
+  private Registrar mRegistrar;
 
-  private AlarmclockPlugin(Activity activity) {
-    this.activity = activity;
+  private AlarmclockPlugin(Registrar registrar) {
+    this.mRegistrar = registrar;
   }
 
   /**
@@ -26,7 +27,7 @@ public class AlarmclockPlugin implements MethodCallHandler {
    */
   public static void registerWith(Registrar registrar) {
     final MethodChannel channel = new MethodChannel(registrar.messenger(), "alarmclock", JSONMethodCodec.INSTANCE);
-    channel.setMethodCallHandler(new AlarmclockPlugin(registrar.activity()));
+    channel.setMethodCallHandler(new AlarmclockPlugin(registrar));
   }
 
   @Override
@@ -45,14 +46,20 @@ public class AlarmclockPlugin implements MethodCallHandler {
     }
   }
 
+  private Context getActiveContext() {
+    return (mRegistrar.activity() != null) ? mRegistrar.activity() : mRegistrar.context();
+  }
+
   public boolean startAlarmClockActivity(MethodCall call) {
     try {
+      Context context = getActiveContext();
+
       Intent i = new Intent(AlarmClock.ACTION_SET_ALARM);
       JSONArray args = (JSONArray) call.arguments;
 
       boolean skipui = args.getBoolean(0);
-      String hour = args.getString(1);
-      String minute = args.getString(2);
+      Integer hour = args.getInt(1);
+      Integer minute = args.getInt(2);
       String message = args.getString(3);
 
       i.putExtra(AlarmClock.EXTRA_SKIP_UI, skipui);
@@ -60,10 +67,11 @@ public class AlarmclockPlugin implements MethodCallHandler {
       i.putExtra(AlarmClock.EXTRA_MINUTES, minute);
       i.putExtra(AlarmClock.EXTRA_MESSAGE, message);
 
-      activity.startActivity(i);
+      context.startActivity(i);
     } catch (Exception e) {
       return false;
     }
+
     return true;
   }
 }

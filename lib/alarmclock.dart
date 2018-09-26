@@ -11,13 +11,13 @@ class Alarmclock {
     return version;
   }
 
-  static Future<bool> setAlarm({bool skipui = false, String hour = "12", String minute = "00", String message = "Flutter"}) async {
-    bool ok = await _channel.invokeMethod('setAlarm', <dynamic>[
-      skipui,
-      hour,
-      minute,
-      message
-    ]);
+  static Future<bool> setAlarm(
+      {bool skipui = false,
+      int hour = 12,
+      int minute = 0,
+      String message = "Flutter"}) async {
+    bool ok = await _channel
+        .invokeMethod('setAlarm', <dynamic>[skipui, hour, minute, message]);
     return ok;
   }
 }
